@@ -7,6 +7,7 @@ function makeRows(rows, cols) {
   container.style.setProperty("--grid-cols", cols); // Valores para el grid dinamico
   for (c = 0; c < rows * cols; c++) {
     let cell = document.createElement("div");
+    cell.innerText = c + 1;
     container.appendChild(cell).className = "grid-item";
   }
   hover();
@@ -34,5 +35,18 @@ function hover() {
 
 let columnas = 16;
 let filas = 16;
-
+let userInput = 0;
 makeRows(filas, columnas);
+const boton = document.querySelector(".boton");
+
+boton.addEventListener("click", () => {
+  do {
+    userInput = prompt(" Elija cantidad columnas o filas (entre 1 y 100)");
+  } while (
+    userInput <= 0 ||
+    userInput > 100 ||
+    !(userInput == Math.floor(userInput))
+  );
+  container.replaceChildren();
+  makeRows(userInput, userInput);
+});
